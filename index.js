@@ -4,6 +4,8 @@ import router from './Routes/index.js';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import morgan from 'morgan';
+import cors from 'cors';
+
 // import {Hello} from './'
 const app= express();
 
@@ -16,10 +18,13 @@ app.get("/",function(req,res,next){
 })
 
 app.get("/Hello",Hello);
-app.use(morgan('dev'))
-app.use('/api/v1',router)
+app.use(morgan('dev'));
+app.use('/api/v1',router);
+app.use(cors())
+app.use(express.json());
+
 
 
 mongoose.connect(process.env.MONGOURL).then(()=>console.log("Database Connected"))
 // app.get('/hello',Hello)
-app.listen(8000 ,()=>console.log('Hi'));
+app.listen(8000 ,()=>console.log('Hii'));
