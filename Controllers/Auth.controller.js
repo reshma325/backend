@@ -6,15 +6,15 @@ import JWT from "jsonwebtoken"
 export const login = async (req, res) => {
 
     try {
-        const { email, password } = req.body;
+        const { email, password } = req.body.userData;
+        ;
         if (!email || !password)
             return res.status(401).json({ success: false, message: "Please provide Valid Credentials" })
         const user = await UserModel.findOne({ email: email })
         // console.log(user,"user")
         if (!user) return res.status(401).json({ success: false, message: "Please provide valid email" })
-        const isPasscorrect = await bcrypt.compare(password, user.password);
-        // console.log(isPasscorrect,"check")
-        if (!isPasscorrect) {
+    
+        if (password !== user.password) {
             return res.status(401).json({
                 success: false, message: "please provide valid password"
 
@@ -35,8 +35,9 @@ export const login = async (req, res) => {
 export const register = async (req, res) => {
 
     try {
-        // console.log(req.body);
-        const { name, email, password } = req.body
+        // console.log(req);
+        const { name, email, password } = req.body.userData
+        
         // console.log(name,email,password)
 
         if (!name || !email || !password)

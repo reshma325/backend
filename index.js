@@ -5,27 +5,27 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import morgan from 'morgan';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 // import {Hello} from './'
 const app= express();
 
 
 dotenv.config()
-app.get("/",function(req,res,next){
-    res.send("Hello from index.js")
-    next();
 
-})
+
+app.use(cors());
 
 app.get("/Hello",Hello);
 app.use(morgan('dev'));
-app.use('/api/v1',router);
-app.use(cors())
+
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
 
 
 
+app.get("/",(req,res)=>{
+    res.send("pong")
+})
+app.use('/api/v1',router);
 mongoose.connect(process.env.MONGOURL).then(()=>console.log("Database Connected"))
 // app.get('/hello',Hello)
 app.listen(8000 ,()=>console.log('Hii'));
