@@ -10,6 +10,6 @@ import {CheckUserId} from '../Middlewares/AllMiddlewares.js'
 const router = Router();
 router.post('/login',login )
 router.post('/register',register)
-router.post('/get-current-user',CheckUserId,getCurrentUser)
+router.post('/get-current-user',getCurrentUser)
 
 export default router;
